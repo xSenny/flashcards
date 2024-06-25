@@ -18,10 +18,14 @@ const OwnedFlashcards = async ({userId}: {userId: String}) => {
       <div className='flex items-center justify-between mb-6'>
         <h1 className='text-2xl font-bold'>My Flashcard Groups</h1>
         <SignedIn>
-          <Button>See all your groups</Button>
+          <Button>
+            <Link href="/owned" prefetch={false}>See all your flashcard groups</Link>
+          </Button>
         </SignedIn>
         <SignedOut>
-          <Button disabled>See all your groups</Button>
+          <Button disabled>
+          See all your flashcard groups
+          </Button>
         </SignedOut>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -43,15 +47,17 @@ const OwnedFlashcards = async ({userId}: {userId: String}) => {
         <SignedIn>
           <CreateGroup userId={userId}/>
           {groups !== undefined && groups.map(i => (
-            <Card key={i._id} className="p-4 hover:bg-muted transition-colors cursor-pointer">
-              <CardHeader>
-                <CardTitle>{i.name}</CardTitle>
-                <CardDescription>{i.length} cards</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{i.description}</p>
-              </CardContent>
-            </Card>
+            <Link href={`/${i._id}`} key={i._id}>
+              <Card key={i._id} className="p-4 hover:bg-muted transition-colors cursor-pointer">
+                <CardHeader>
+                  <CardTitle>{i.name}</CardTitle>
+                  <CardDescription>{i.length} cards</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">{i.description}</p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </SignedIn>
       </div>

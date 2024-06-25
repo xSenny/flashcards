@@ -18,8 +18,7 @@ import {useState} from 'react'
 import { Input } from '../ui/input'
 import {Button} from '../ui/button'
 import { Checkbox } from "@/components/ui/checkbox"
-
-
+import {useRouter} from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { createGroup } from '@/lib/actions/cardgroup.actions'
 
@@ -31,6 +30,8 @@ const CreateGroup = ({userId}: {userId: String}) => {
     description: '',
     public: false 
   })
+
+  const router = useRouter()
 
   const handleCreateGroup = async () => {
     try {
@@ -44,6 +45,8 @@ const CreateGroup = ({userId}: {userId: String}) => {
       })
     } catch (e) {
       console.log(e)
+    } finally {
+      router.refresh()
     }
   }
 
