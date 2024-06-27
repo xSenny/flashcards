@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 
 
 export default function Page() {
-  return <SignUp />;
+  return (
+    <div className="flex items-center justify-center w-full h-screen">
+      <SignUp />
+    </div>
+  );
 }
