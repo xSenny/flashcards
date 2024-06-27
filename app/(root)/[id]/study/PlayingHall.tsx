@@ -9,10 +9,9 @@ import {useRouter} from 'next/navigation'
 import Link from 'next/link';
 
 
-const Cardd = ({answer, question}: {answer: string, question: string}) => {
-  const [flip, setFlip] = useState(false)
+const Cardd = ({answer, question, flip, setFlip}: {answer: string, question: string, flip: boolean, setFlip: (arg: boolean) => void}) => {
   return (
-    <ReactCardFlip isFlipped={flip}>
+    <ReactCardFlip isFlipped={flip} >
       <Card className="w-96 min-h-44 flex justify-center items-center cursor-pointer" onClick={() => setFlip(!flip)}>
         <CardContent className="space-y-6 p-6">
           <div className="space-y-2">
@@ -33,6 +32,8 @@ const Cardd = ({answer, question}: {answer: string, question: string}) => {
 
 const PlayingHall = ({cards}: {cards: string}) => {
 
+  const [flip, setFlip] = useState(false)
+
   const [parsed, setParsed] = useState<CardParams[]>(JSON.parse(cards))
   const [number, setNumber] = useState(0)
   const router = useRouter();
@@ -41,9 +42,7 @@ const PlayingHall = ({cards}: {cards: string}) => {
   useEffect(() => {
     // Update the currentQuestion state whenever number changes
     setCurrentQuestion(parsed[number]);
-    console.log(parsed[number])
-    console.log(number)
-    console.log(parsed)
+    setFlip(false)
   }, [number]);
 
 
@@ -64,7 +63,7 @@ const PlayingHall = ({cards}: {cards: string}) => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center flex-col gap-[10%]">
-      <Cardd answer={currentQuestion.answer} question={currentQuestion.question} />
+      <Cardd answer={currentQuestion.answer} question={currentQuestion.question} flip={flip} setFlip={setFlip}/>
       <Progress value={(number / parsed.length) * 100}  className="w-[60%]"/>
       <div className="flex justify-center gap-10 w-full">
           <Button variant="outline">
