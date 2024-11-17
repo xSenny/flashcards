@@ -22,6 +22,30 @@ export const createCard = async (card: CardParams) => {
   }
 }
 
+export const createCards = async (cards: CardParams[]) => {
+  try {
+    await connectToDatabase();
+
+    const createdCards = await Promise.all(
+      cards.map(async (card) => {
+        const createdCard = await Card.create(card);
+
+        const group = await Group.findById(card.group);
+        if (!group) throw new Error(`Could not find the group for card`);
+
+        await Group.findByIdAndUpdate(card.group, { length: group.length + 1 });
+
+        return createdCard;
+      })
+    );
+
+    return JSON.parse(JSON.stringify(createdCards));
+  } catch (e) {
+    console.log(e);
+    throw e; // Re-throw the error for the caller to handle
+  }
+};
+
 export const getAllCardsForGroup = async (group: string) => {
   try {
     await connectToDatabase()

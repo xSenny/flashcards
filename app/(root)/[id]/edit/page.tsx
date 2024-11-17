@@ -7,6 +7,7 @@ import {Button} from '@/components/ui/button'
 import CreateCard from '@/components/shared/CreateCard'
 import EditCard from '@/components/shared/EditCard'
 import DeleteGroup from '@/components/shared/DeleteGroup'
+import { GenerateQuestions } from '@/components/shared/GenerateQuestions';
 
 const page = async ({params}: {params: {id: string}}) => {
 
@@ -30,6 +31,7 @@ const page = async ({params}: {params: {id: string}}) => {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">{group.name}</h1>
           <div className="flex gap-4">
+            <GenerateQuestions groupId={params.id}/>
             <DeleteGroup id={group.id} />
           </div>
         </div>
