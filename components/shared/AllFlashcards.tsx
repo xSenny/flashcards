@@ -49,7 +49,7 @@ const AllFlashcards = ({flashCards}: {flashCards: string}) => {
             </CardContent>
             <CardFooter>
               <Button variant="outline" asChild>
-                <Link href={`/${g._id!}`}>View Group</Link>
+                <Link href={`/${g._id?.toString()}`}>View Group</Link>
               </Button>
             </CardFooter>
           </Card>
